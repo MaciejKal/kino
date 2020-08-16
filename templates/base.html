@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+ul.navibar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li.navibar {
+  float: left;
+}
+
+li.navibar a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li.navibar a:hover {
+  background-color: #111;
+}
+
+.activenavibar {
+  background-color: #4CAF50;
+}
+
+body {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+   {% block contentstyle %}
+    replace me
+   {% endblock %}
+
+</style>
+    <title>Sieć kin Kino</title>
+</head>
+<body>
+
+    {% block contentbase %}
+    replace me
+    {% endblock %}
+
+    {% block content %}
+    replace me
+    {% endblock %}
+
+
+
+    {% block script %}
+    {% endblock %}
+    </body>
+</html>
