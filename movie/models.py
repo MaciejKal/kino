@@ -6,7 +6,7 @@ from cinema import models as cinema
 class Movie(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=800)
-    image = models.ImageField()
+    image = models.ImageField(blank=True)
 
 class Preview(models.Model):
     cinema = models.ForeignKey(cinema.Cinema, on_delete=models.CASCADE)
