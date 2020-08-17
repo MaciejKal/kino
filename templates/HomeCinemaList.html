@@ -89,8 +89,12 @@ float: left;
 float: left;
   width: 40%;
   margin-left: 5%;
+}
+
+#cinemaDiv {
   display: none;
 }
+
 .subclass {
   width: 100%;
   height:auto;
@@ -279,8 +283,7 @@ function toogleTextFilm(text, id) {
 }
 function showKina() {
     document.getElementById("filmDiv").style.display = "none";
-    document.getElementById("cinemaDiv").style.display = "";
-    consol.log('showkina')
+    document.getElementById("cinemaDiv").style.display = "block";
 }
 
 function showFilm() {
