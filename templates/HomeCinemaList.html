@@ -63,6 +63,7 @@ float: left;
     place-items: center;
   resize: both;
   overflow: auto;
+
   }
 
 .selection {
@@ -70,6 +71,28 @@ float: left;
   width: 40%;
   display: flex;
   margin-right:10%;
+}
+
+.selectionList {
+    position: relative;
+  float: left;
+  display: inline-block;
+float: left;
+  width: 40%;
+  margin-left: 5%;
+
+}
+.selectionListCinema {
+    position: relative;
+  float: left;
+  display: inline-block;
+float: left;
+  width: 40%;
+  margin-left: 5%;
+}
+
+#cinemaDiv {
+  display: none;
 }
 
 .subclass {
@@ -101,42 +124,37 @@ display: flex;
 
 <div class = "parent">
   <div class="subclass">
-    <div class="dropdown">
-      <button id = "choiceButton" onclick="myFunction()" class="dropbtn">Wybierz kino</button>
-      <div id="myDropdown" class="dropdown-content">
-        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-          {% for instance in object_list %}
-             <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}')" > {{ instance.city }} - {{ instance.name }}</a>
-          {% endfor %}
-      </div>
-    </div>
-    <div class="selection">
-        <button onclick="showKina()" class="dropbtn">Kina</button>
-        <button onclick="showFilm()" class="dropbtn">Filmy</button>
-    </div>
-  </div>
-</div>
-
-<div class = "parent2" id = "tohide">
-  <div class="subclass2">
-    <div class="dropdown">
-      <button id = "choiceButton3" onclick="myFunction()" class="dropbtn">Wybierz kino</button>
-      <div id="myDropdown3" class="dropdown-content">
-        <input type="text" placeholder="Search.." id="myInput3" onkeyup="filterFunction()">
-          {% for instance in object_list %}
-             <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}')" > {{ instance.city }} - {{ instance.name }}</a>
-          {% endfor %}
-      </div>
-    </div>
-    <div class="dropdown2">
-      <button id = "choiceButton2" onclick="myFunction()" class="dropbtn2">Wybierz Film</button>
-      <div id="myDropdown2" class="dropdown-content2">
-        <input type="text" placeholder="Search.." id="myInput2" onkeyup="filterFunction()">
-          {% for instance in object_list %}
-             <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}')" > {{ instance.city }} - {{ instance.name }}</a>
-          {% endfor %}
-      </div>
-    </div>
+      <div class ="selectionList" id="filmDiv">
+            <div class="dropdown">
+              <button id = "choiceButtonFilm" onclick="myFunctionFilm()" class="dropbtn">Wybierz Film</button>
+              <div id="myDropdownFilm" class="dropdown-content">
+                <input type="text" placeholder="Search.." id="myInputFilm" onkeyup="filterFunctionFilm()">
+                  {% for movie in object_list_movies %}
+                     <a onclick="toogleTextFilm('{{ movie.name }}',{{ movie.id }})" > {{ movie.name }}</a>
+                  {% endfor %}
+              </div>
+            </div>
+            <div class="dropdown">
+              <button id = "choiceButton" onclick="myFunction()" class="dropbtn" autocomplete="off" disabled="disabled">Wybierz kino</button>
+              <div id="myDropdown" class="dropdown-content">
+                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                  {% for instance in object_list %}
+                     <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
+                  {% endfor %}
+              </div>
+           </div>
+        </div>
+        <div class ="selectionListCinema" id="cinemaDiv">
+            <div class="dropdown">
+              <button id = "choiceButtonM" onclick="myFunctionM()" class="dropbtn">Wybierz kino</button>
+              <div id="myDropdownM" class="dropdown-content">
+                <input type="text" placeholder="Search.." id="myInputM" onkeyup="filterFunctionM()">
+                  {% for instance in object_list %}
+                     <a onclick="toogleTextM('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
+                  {% endfor %}
+              </div>
+            </div>
+        </div>
     <div class="selection">
         <button onclick="showKina()" class="dropbtn">Kina</button>
         <button onclick="showFilm()" class="dropbtn">Filmy</button>
@@ -149,16 +167,31 @@ display: flex;
 {% endblock %}
 
 {% block script %}
-<script>
+
+var list = [{% for show in object_list_shows %}
+             [{{ show.movie.id }}, {{ show.cinema.id }}],
+          {% endfor %}]
+
+var idCinema
+var movie
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
+  document.getElementById("myInput").value = ""
+}
+function myFunctionM() {
+  document.getElementById("myDropdownM").classList.toggle("show");
+  document.getElementById("myInputM").value = ""
+}
+function myFunctionFilm() {
+  document.getElementById("myDropdownFilm").classList.toggle("show");
+  document.getElementById("myInputFilm").value = ""
 }
 
-function filterFunction() {
+function filterFunctionM() {
   var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
+  input = document.getElementById("myInputM");
   filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
+  div = document.getElementById("myDropdownM");
   a = div.getElementsByTagName("a");
   for (i = 0; i < a.length; i++) {
     txtValue = a[i].textContent || a[i].innerText;
@@ -169,18 +202,94 @@ function filterFunction() {
     }
   }
 }
-function toogleText(text) {
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    console.log()
+    if ((txtValue.toUpperCase().indexOf(filter) > -1) && (a[i].style.visibility == "visible") ){
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+function filterFunctionFilm() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInputFilm");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdownFilm");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+function toogleText(text, id) {
+  idCinema = id
   document.getElementById("choiceButton").innerHTML = text;
   document.getElementById("myDropdown").classList.toggle("show");
 }
-
-function showKina() {
-  var x = document.getElementById("tohide");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
+function toogleTextM(text, id) {
+  idCinema = id
+  document.getElementById("choiceButtonM").innerHTML = text;
+  document.getElementById("myDropdownM").classList.toggle("show");
 }
-</script>
+function toogleTextFilm(text, id) {
+  var a, div, test
+  movie = id
+  var tempL = []
+  for (ii = 0; ii < list.length; ii++) {
+        if (list[ii][0]==id){
+          tempL.push(list[ii][1])
+        }
+  }
+  document.getElementById("choiceButton").innerHTML = "Wybierz kino"
+  document.getElementById("choiceButtonFilm").innerHTML = text;
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    test = 0
+    txtValue = a[i].textContent || a[i].innerText;
+    for (kk = 0; kk < tempL.length; kk++){
+      if (tempL[kk]==parseInt(a[i].id)){
+        test = 1
+
+      }
+    }
+    if (test == 0){
+      a[i].style.display = "none";
+      a[i].style.visibility = "hidden";
+    }
+    else {
+      a[i].style.display = ""
+      a[i].style.visibility = "visible";
+    }
+  }
+  document.getElementById("myDropdownFilm").classList.toggle("show");
+  document.getElementById("choiceButton").disabled = false;
+  document.getElementById("myInput").value = ""
+}
+function showKina() {
+    document.getElementById("filmDiv").style.display = "none";
+    document.getElementById("cinemaDiv").style.display = "block";
+}
+
+function showFilm() {
+    document.getElementById("filmDiv").style.display = "";
+    document.getElementById("cinemaDiv").style.display = "none";
+}
+
+
 {% endblock %}
