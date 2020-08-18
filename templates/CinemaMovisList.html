@@ -1,0 +1,27 @@
+{% extends 'baseHome.html' %}
+
+{% block contentstyle %}
+
+
+{% endblock %}
+
+{% block content %}
+
+{% for show, showHall in object_list %}
+<div>{{ show.movie.name}}
+    {% for instance in showHall %}
+        <button>{{ instance.dateTime }}</button>
+   {% endfor %}
+</div>
+{% endfor %}
+
+
+
+
+{% endblock %}
+
+{% block script %}
+
+
+
+{% endblock %}

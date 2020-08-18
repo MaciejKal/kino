@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from .models import Cinema
-from movie.models import Show, Movie
+from movie.models import Show, ShowHall
 import datetime
 
 # Create your views here.
@@ -33,5 +33,23 @@ class HomeCinemaListView(View):
             'object_list': self.get_queryset(),
             'object_list_movies': self.get_querysetMovies(),
             'object_list_shows': self.get_querysetShow()
+        }
+        return render(request, self.template_name, context)
+
+class CinemaMovieList(View):
+    template_name = 'CinemaMovisList.html'
+    def get_objects(self):
+        queryset = []
+        idC = self.kwargs.get('idC')
+        shows = Show.objects.all().filter(cinema_id = idC)
+        for show in shows:
+            showHall = ShowHall.objects.all().filter(show_id = show.id)
+            queryset.append([show, showHall])
+
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'object_list': self.get_objects()
         }
         return render(request, self.template_name, context)

@@ -32,8 +32,8 @@
   float: left;
   display: inline-block;
 float: left;
-  width: 40%;
-  margin-left: 10%;
+  width: 95%;
+  margin-left: 5%;
 }
 
 .dropdown-content {
@@ -68,7 +68,7 @@ float: left;
 
 .selection {
   justify-content: flex-end;
-  width: 40%;
+  width: 10%;
   display: flex;
   margin-right:10%;
 }
@@ -78,7 +78,7 @@ float: left;
   float: left;
   display: inline-block;
 float: left;
-  width: 40%;
+  width: 70%;
   margin-left: 5%;
 
 }
@@ -87,7 +87,7 @@ float: left;
   float: left;
   display: inline-block;
 float: left;
-  width: 40%;
+  width: 70%;
   margin-left: 5%;
 }
 
@@ -133,16 +133,15 @@ display: flex;
                      <a onclick="toogleTextFilm('{{ movie.name }}',{{ movie.id }})" > {{ movie.name }}</a>
                   {% endfor %}
               </div>
-            </div>
-            <div class="dropdown">
-              <button id = "choiceButton" onclick="myFunction()" class="dropbtn" autocomplete="off" disabled="disabled">Wybierz kino</button>
+                <button id = "choiceButton" onclick="myFunction()" class="dropbtn" autocomplete="off" disabled="disabled">Wybierz kino</button>
               <div id="myDropdown" class="dropdown-content">
                 <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                   {% for instance in object_list %}
                      <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
                   {% endfor %}
               </div>
-           </div>
+                <button onclick="gotoPage()" class="dropbtn">Dalej</button>
+            </div>
         </div>
         <div class ="selectionListCinema" id="cinemaDiv">
             <div class="dropdown">
@@ -153,6 +152,7 @@ display: flex;
                      <a onclick="toogleTextM('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
                   {% endfor %}
               </div>
+              <button onclick="gotoPage()" class="dropbtn">Dalej</button>
             </div>
         </div>
     <div class="selection">
@@ -289,6 +289,10 @@ function showKina() {
 function showFilm() {
     document.getElementById("filmDiv").style.display = "";
     document.getElementById("cinemaDiv").style.display = "none";
+}
+
+function gotoPage() {
+    window.location.href = "/kino/" + idCinema
 }
 
 
