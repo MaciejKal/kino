@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Movie)
 admin.site.register(Preview)
 admin.site.register(Show)
+admin.site.register(ShowHall)
