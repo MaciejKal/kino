@@ -41,9 +41,11 @@ class CinemaMovieList(View):
     def get_objects(self):
         queryset = []
         idC = self.kwargs.get('idC')
+        dateSelect = self.request.GET.get('date', datetime.date.today())
+
         shows = Show.objects.all().filter(cinema_id = idC)
         for show in shows:
-            showHall = ShowHall.objects.all().filter(show_id = show.id)
+            showHall = ShowHall.objects.all().filter(show_id = show.id).filter(dateTime__date = dateSelect).order_by('pricing_id','dateTime')
             queryset.append([show, showHall])
 
         return queryset

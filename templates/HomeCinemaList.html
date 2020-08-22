@@ -140,7 +140,7 @@ display: flex;
                      <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
                   {% endfor %}
               </div>
-                <button onclick="gotoPage()" class="dropbtn">Dalej</button>
+                <button onclick="gotoPage()" class="dropbtn" id="nextButton" autocomplete="off" disabled="disabled">Dalej</button>
             </div>
         </div>
         <div class ="selectionListCinema" id="cinemaDiv">
@@ -152,7 +152,7 @@ display: flex;
                      <a onclick="toogleTextM('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
                   {% endfor %}
               </div>
-              <button onclick="gotoPage()" class="dropbtn">Dalej</button>
+              <button onclick="gotoPage()" class="dropbtn" id="nextButton2" autocomplete="off" disabled="disabled">Dalej</button>
             </div>
         </div>
     <div class="selection">
@@ -240,11 +240,13 @@ function toogleText(text, id) {
   idCinema = id
   document.getElementById("choiceButton").innerHTML = text;
   document.getElementById("myDropdown").classList.toggle("show");
+  document.getElementById("nextButton").disabled = false;
 }
 function toogleTextM(text, id) {
   idCinema = id
   document.getElementById("choiceButtonM").innerHTML = text;
   document.getElementById("myDropdownM").classList.toggle("show");
+  document.getElementById("nextButton2").disabled = false;
 }
 function toogleTextFilm(text, id) {
   var a, div, test
