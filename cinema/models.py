@@ -18,6 +18,7 @@ class Pricing(models.Model):
     priceStud = models.DecimalField(decimal_places=2, max_digits=5)
     priceChild = models.DecimalField(decimal_places=2, max_digits=5)
     priceName = models.CharField(max_length=40)
+    priceType = models.CharField(max_length=40, blank=True)
 
 class Place(models.Model):
     hall = models.ForeignKey(Hall, on_delete=models.CASCADE)
