@@ -140,7 +140,7 @@ display: flex;
                      <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
                   {% endfor %}
               </div>
-                <button onclick="gotoPage()" class="dropbtn" id="nextButton" autocomplete="off" disabled="disabled">Dalej</button>
+                <button onclick="gotoPage2()" class="dropbtn" id="nextButton" autocomplete="off" disabled="disabled">Dalej</button>
             </div>
         </div>
         <div class ="selectionListCinema" id="cinemaDiv">
@@ -296,6 +296,8 @@ function showFilm() {
 function gotoPage() {
     window.location.href = "/kino/" + idCinema
 }
-
+function gotoPage2() {
+    window.location.href = "/kino/" + idCinema + "/film/" + movie
+}
 
 {% endblock %}
