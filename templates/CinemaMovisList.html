@@ -140,7 +140,7 @@ nav {
   <li>
     <div class="container">
       <div class="divImg"><img  src="{{ show.movie.image.url }}"/></div>
-      <div class="divInfo"><div class="divHeader"><h3>{{ show.movie.name }}</h3>
+        <div class="divInfo"><div class="divHeader"><h3><a href="/kino/{{ show.cinema.id }}/film/{{ show.movie.id }}">{{ show.movie.name }}</a></h3>
       <p>{{ show.movie.genre }} | {{ show.movie.length }}</p></div><div class = "spacer"></div>
       <div class="divButtons"><p>
           {% for instance in showHall %}  {% ifchanged instance.pricing.priceName %} </p><p>{{ instance.pricing.priceType }}: {% endifchanged %} <button onclick="goToShow({{ instance.id }})">{{ instance.dateTime|date:"H:i"  }}</button>{% endfor %}</p>
