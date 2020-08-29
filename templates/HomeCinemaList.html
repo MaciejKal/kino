@@ -1,5 +1,6 @@
 {% extends 'baseHome.html' %}
 
+
 {% block contentstyle %}
     .dropbtn {
   background-color: #4CAF50;
@@ -14,6 +15,8 @@
   background-color: #3e8e41;
 }
 
+
+
 #myInput {
   box-sizing: border-box;
   background-image: url('searchicon.png');
@@ -27,12 +30,41 @@
 
 #myInput:focus {outline: 3px solid #ddd;}
 
+#myInputFilm {
+  box-sizing: border-box;
+  background-image: url('searchicon.png');
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+#myInputFilm:focus {outline: 3px solid #ddd;}
+
+
+#myInputM {
+  box-sizing: border-box;
+  background-image: url('searchicon.png');
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+#myInputM:focus {outline: 3px solid #ddd;}
+
+
+
 .dropdown {
   position: relative;
   float: left;
-  display: inline-block;
+  display: flex;
 float: left;
-  width: 95%;
+  width: 100%;
   margin-left: 5%;
 }
 
@@ -55,6 +87,7 @@ float: left;
 
 .dropdown a:hover {background-color: #ddd;}
 
+
 .show {display: block;}
 
 .parent {
@@ -68,9 +101,10 @@ float: left;
 
 .selection {
   justify-content: flex-end;
-  width: 10%;
+  width: 20%;
   display: flex;
-  margin-right:10%;
+  margin-left: 5%;
+  margin-right:5%;
 }
 
 .selectionList {
@@ -80,6 +114,7 @@ float: left;
 float: left;
   width: 70%;
   margin-left: 5%;
+  margin-right:5%;
 
 }
 .selectionListCinema {
@@ -89,6 +124,7 @@ float: left;
 float: left;
   width: 70%;
   margin-left: 5%;
+  margin-right:5%;
 }
 
 #cinemaDiv {
@@ -101,7 +137,9 @@ float: left;
 
 display: flex;
 }
-
+.buttonKino {
+  width: max-content;
+}
 
 .selection button {
   background-color: #4CAF50; /* Green background */
@@ -111,6 +149,9 @@ display: flex;
   cursor: pointer; /* Pointer/hand icon */
   float: left; /* Float the buttons side by side */
 }
+
+
+
 
 {% endblock %}
 
@@ -126,21 +167,22 @@ display: flex;
   <div class="subclass">
       <div class ="selectionList" id="filmDiv">
             <div class="dropdown">
-              <button id = "choiceButtonFilm" onclick="myFunctionFilm()" class="dropbtn">Wybierz Film</button>
+              <div class="buttonKino"><button id = "choiceButtonFilm" onclick="myFunctionFilm()" class="dropbtn">Wybierz Film</button>
               <div id="myDropdownFilm" class="dropdown-content">
                 <input type="text" placeholder="Search.." id="myInputFilm" onkeyup="filterFunctionFilm()">
                   {% for movie in object_list_movies %}
                      <a onclick="toogleTextFilm('{{ movie.name }}',{{ movie.id }})" > {{ movie.name }}</a>
                   {% endfor %}
-              </div>
-                <button id = "choiceButton" onclick="myFunction()" class="dropbtn" autocomplete="off" disabled="disabled">Wybierz kino</button>
+              </div></div>
+                <div class="buttonKino" style=" margin-left: auto; margin-right:2%;"><button id = "choiceButton" onclick="myFunction()" class="dropbtn" autocomplete="off" disabled="disabled">Wybierz kino</button>
               <div id="myDropdown" class="dropdown-content">
                 <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                   {% for instance in object_list %}
                      <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
                   {% endfor %}
-              </div>
-                <button onclick="gotoPage2()" class="dropbtn" id="nextButton" autocomplete="off" disabled="disabled">Dalej</button>
+              </div></div>
+                <div class="buttonKino"><button onclick="gotoPage2()" class="dropbtn" id="nextButton" autocomplete="off" disabled="disabled">Dalej</button>
+                  </div>
             </div>
         </div>
         <div class ="selectionListCinema" id="cinemaDiv">
@@ -152,12 +194,12 @@ display: flex;
                      <a onclick="toogleTextM('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
                   {% endfor %}
               </div>
-              <button onclick="gotoPage()" class="dropbtn" id="nextButton2" autocomplete="off" disabled="disabled">Dalej</button>
+              <button style="margin-left:2%;" onclick="gotoPage()" class="dropbtn" id="nextButton2" autocomplete="off" disabled="disabled">Dalej</button>
             </div>
         </div>
     <div class="selection">
-        <button onclick="showKina()" class="dropbtn">Kina</button>
-        <button onclick="showFilm()" class="dropbtn">Filmy</button>
+        <button onclick="showKina()" class="dropbtn" >Kina</button>
+        <button onclick="showFilm()" class="dropbtn" id="movieGroup">Filmy</button>
     </div>
   </div>
 </div>
@@ -167,6 +209,10 @@ display: flex;
 {% endblock %}
 
 {% block script %}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    document.getElementById("movieGroup").focus();
+ });
 
 var list = [{% for show in object_list_shows %}
              [{{ show.movie.id }}, {{ show.cinema.id }}],
