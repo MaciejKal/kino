@@ -33,3 +33,29 @@ class ShowView(View):
 
         }
         return render(request, self.template_name, context)
+
+class PreviewListView(View):
+    template_name = 'PreviewList.html'
+    def get_previews(self):
+
+        return Preview.objects.all().filter(premiere__gt = datetime.date.today())
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'preview_List': self.get_previews(),
+
+        }
+        return render(request, self.template_name, context)
+
+class PreviewListCinemaView(View):
+    template_name = 'PreviewList.html'
+    def get_previews(self):
+        idC = self.kwargs.get('id')
+        return Preview.objects.all().filter(cinema_id = idC).filter(premiere__gt = datetime.date.today())
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'preview_List': self.get_previews(),
+
+        }
+        return render(request, self.template_name, context)

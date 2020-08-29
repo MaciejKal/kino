@@ -324,6 +324,10 @@ function myListFilter() {
 }
 
 function goToShow(x) {
-    window.location.href = "/seans/" + x
+    window.location.href = "/seans/" + x;
+}
+
+function goToPreviews(){
+    window.location.href = "/zapowiedzi/{{ preview.0.cinema.id }}";
 }
 {% endblock %}

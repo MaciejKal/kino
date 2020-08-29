@@ -340,10 +340,15 @@ function showFilm() {
 }
 
 function gotoPage() {
-    window.location.href = "/kino/" + idCinema
+    window.location.href = "/kino/" + idCinema;
 }
 function gotoPage2() {
-    window.location.href = "/kino/" + idCinema + "/film/" + movie
+    window.location.href = "/kino/" + idCinema + "/film/" + movie;
 }
+
+function goToPreviews(){
+    window.location.href = "/zapowiedzi";
+}
+
 
 {% endblock %}
