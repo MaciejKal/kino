@@ -10,6 +10,12 @@ class Movie(models.Model):
     genre = models.CharField(max_length=50, blank=True )
     lenght = models.CharField(max_length=10, blank=True )
 
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
 class Preview(models.Model):
     cinema = models.ForeignKey(cinema.Cinema, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
@@ -20,6 +26,9 @@ class Show(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     dateFrom = models.DateField()
     dateTo = models.DateField()
+
+    def __str__(self):
+        return 'kino: ' + self.cinema.name + ' film:' + self.movie.name
 
 class ShowHall(models.Model):
     show = models.ForeignKey(Show, on_delete=models.CASCADE)
