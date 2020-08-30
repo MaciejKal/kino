@@ -2,8 +2,8 @@
 
 
 {% block contentstyle %}
-    .dropbtn {
-  background-color: #4CAF50;
+.dropbtn {
+  background-color: #86c232;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -12,7 +12,7 @@
 }
 
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
+  background-color: #61892f;
 }
 
 
@@ -63,7 +63,6 @@
   position: relative;
   float: left;
   display: flex;
-float: left;
   width: 100%;
   margin-left: 5%;
 }
@@ -91,12 +90,10 @@ float: left;
 .show {display: block;}
 
 .parent {
-  background: lightblue;
-    display: grid;
-    place-items: center;
+  background: #474b4f;
+  place-items: flex-start center;
   resize: both;
   overflow: auto;
-
   }
 
 .selection {
@@ -108,20 +105,18 @@ float: left;
 }
 
 .selectionList {
-    position: relative;
+  position: relative;
   float: left;
   display: inline-block;
-float: left;
   width: 70%;
   margin-left: 5%;
   margin-right:5%;
 
 }
 .selectionListCinema {
-    position: relative;
+  position: relative;
   float: left;
   display: inline-block;
-float: left;
   width: 70%;
   margin-left: 5%;
   margin-right:5%;
@@ -134,25 +129,39 @@ float: left;
 .subclass {
   width: 100%;
   height:auto;
-
-display: flex;
+  display: flex;
+  background-color: #6b6e70
 }
 .buttonKino {
   width: max-content;
 }
 
 .selection button {
-  background-color: #4CAF50; /* Green background */
+  background-color: #86c232; /* Green background */
   border: 1px solid green; /* Green border */
-  color: white; /* White text */
+  color: #fff; /* White text */
   padding: 10px 24px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
   float: left; /* Float the buttons side by side */
 }
 
+img{
+  vertical-align: text-top;
+  height: 100%;
+  object-fit: contain;
+  object-position: 0 0;
+}
 
+.image {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 
-
+}
 {% endblock %}
 
 {% block content %}
@@ -164,27 +173,32 @@ display: flex;
 
 
 <div class = "parent">
-  <div class="subclass">
-      <div class ="selectionList" id="filmDiv">
-            <div class="dropdown">
-              <div class="buttonKino"><button id = "choiceButtonFilm" onclick="myFunctionFilm()" class="dropbtn">Wybierz Film</button>
-              <div id="myDropdownFilm" class="dropdown-content">
-                <input type="text" placeholder="Search.." id="myInputFilm" onkeyup="filterFunctionFilm()">
-                  {% for movie in object_list_movies %}
-                     <a onclick="toogleTextFilm('{{ movie.name }}',{{ movie.id }})" > {{ movie.name }}</a>
-                  {% endfor %}
-              </div></div>
-                <div class="buttonKino" style=" margin-left: auto; margin-right:2%;"><button id = "choiceButton" onclick="myFunction()" class="dropbtn" autocomplete="off" disabled="disabled">Wybierz kino</button>
-              <div id="myDropdown" class="dropdown-content">
-                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                  {% for instance in object_list %}
-                     <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
-                  {% endfor %}
-              </div></div>
-                <div class="buttonKino"><button onclick="gotoPage2()" class="dropbtn" id="nextButton" autocomplete="off" disabled="disabled">Dalej</button>
-                  </div>
-            </div>
-        </div>
+	<div style="background-color: #000000; height: 50%;  margin-bottom: 0.5%;">
+		<div class="image">
+		  <img src="media/images/kino.jpg" >
+		</div>
+	</div>
+	<div class="subclass">
+	  <div class ="selectionList" id="filmDiv">
+			<div class="dropdown">
+			  <div class="buttonKino"><button id = "choiceButtonFilm" onclick="myFunctionFilm()" class="dropbtn">Wybierz Film</button>
+			  <div id="myDropdownFilm" class="dropdown-content">
+				<input type="text" placeholder="Search.." id="myInputFilm" onkeyup="filterFunctionFilm()">
+				  {% for movie in object_list_movies %}
+					 <a onclick="toogleTextFilm('{{ movie.name }}',{{ movie.id }})" > {{ movie.name }}</a>
+				  {% endfor %}
+			  </div></div>
+				<div class="buttonKino" style=" margin-left: auto; margin-right:2%;"><button id = "choiceButton" onclick="myFunction()" class="dropbtn" autocomplete="off" disabled="disabled">Wybierz kino</button>
+			  <div id="myDropdown" class="dropdown-content">
+				<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+				  {% for instance in object_list %}
+					 <a onclick="toogleText('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
+				  {% endfor %}
+			  </div></div>
+				<div class="buttonKino"><button onclick="gotoPage2()" class="dropbtn" id="nextButton" autocomplete="off" disabled="disabled">Dalej</button>
+				  </div>
+			</div>
+		</div>
         <div class ="selectionListCinema" id="cinemaDiv">
             <div class="dropdown">
               <button id = "choiceButtonM" onclick="myFunctionM()" class="dropbtn">Wybierz kino</button>
