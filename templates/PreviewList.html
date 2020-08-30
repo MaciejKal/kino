@@ -42,12 +42,28 @@
   background-color: #eee;
   box-sizing: border-box;
   width: 80%;
+  margin-bottom: 1%;
 }
 
 .divInfo{
   padding: 15px;
 
 }
+
+.divHeader {
+    box-sizing: border-box;
+    display: flex;
+        justify-content: center;
+}
+.divHeader p {
+  font-size: 14;
+  padding: 1%
+}
+.divHeader svg {
+
+  padding: 2%
+}
+
 .icons {
     box-sizing: border-box;
     display: flex;
@@ -122,15 +138,7 @@ nav {
   <div class="container">
     <div class="description">
       <div class="icons">
-        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-calendar-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-        <path fill-rule="evenodd" d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>
-        <path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"/>
-        </svg>
-
-        <p>DATA PREMIERY:<br/>{{ preview.premiere|date:"Y-m-d" }}</p>
-
-        <svg style=" margin-left: auto;" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z"/>
         <path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
         </svg>
@@ -165,17 +173,30 @@ nav {
 
     <div class="container2">
 
-    <div class="divInfo"><div class="divHeader"><h3>{{ preview.cinema.name }}</h3>
-    <p>
-      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-</svg>
-        {{ preview.cinema.city }} - {{ preview.cinema.adress }} </p></div><div class = "spacer"></div>
+    <div class="divInfo">
+        <div class="divHeader"><h2>{{ preview.cinema.name }}</h2>
+                <svg style="margin-left: auto;" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-calendar-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                <path fill-rule="evenodd" d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>
+                <path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"/>
+            </svg>
+            <p>DATA PREMIERY:<br/>{{ preview.premiere|date:"Y-m-d" }}</p>
+        </div>
+            <p>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+                {{ preview.cinema.city }} - {{ preview.cinema.adress }}
+            </p>
+
+
+
+        <div class = "spacer"></div>
     </div>
 
   </div>
 
-  {% endfor %}
+
 <nav></nav>
 </section>
 {% endfor %}

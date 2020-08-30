@@ -38,7 +38,7 @@ class PreviewListView(View):
     template_name = 'PreviewList.html'
     def get_previews(self):
 
-        return Preview.objects.all().filter(premiere__gt = datetime.date.today())
+        return Preview.objects.all().filter(premiere__gt = datetime.date.today()).order_by('movie_id')
 
     def get(self, request, *args, **kwargs):
         context = {
