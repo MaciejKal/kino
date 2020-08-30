@@ -140,7 +140,7 @@
 
     <div class="center">
             <div class="rowNr">
-                <div style="text-align: center;">Wybierz miejsca</div>
+                <div style="text-align: center;">Wybierz miejsca ({{ request.GET.norm|add:request.GET.sch|add:request.GET.stud|add:request.GET.child}})</div>
                 <div class="row">
     {% for seat, reserved in object_list %}
 
