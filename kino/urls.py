@@ -20,7 +20,7 @@ from kino import settings
 
 
 from cinema.views import HomeCinemaListView, CinemaMovieList
-from movie.views import ShowView, PreviewListCinemaView, PreviewListView
+from movie.views import ShowView, PreviewListCinemaView, PreviewListView, ChoosePlaceView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,6 @@ urlpatterns = [
     path( 'kino/<int:idC>', CinemaMovieList.as_view(), name='cinema-movies'),
     path( 'kino/<int:idC>/film/<int:idM>', ShowView.as_view(), name='cinema-movies'),
     path('zapowiedzi/<int:id>', PreviewListCinemaView.as_view(), name='preview-cinema-movies'),
-    path('zapowiedzi/', PreviewListView.as_view(), name='preview-movies')
+    path('zapowiedzi/', PreviewListView.as_view(), name='preview-movies'),
+    path('seans/<int:id>', ChoosePlaceView.as_view(), name='choose-place')
 ] +static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

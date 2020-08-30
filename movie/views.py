@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 from django.views import View
-from cinema.models import Cinema
-from .models import Show, ShowHall, Preview
+from cinema.models import Cinema, Place
+from .models import Show, ShowHall, Preview, Reservation
 import datetime
 # Create your views here.
 class ShowView(View):
@@ -57,5 +58,35 @@ class PreviewListCinemaView(View):
         context = {
             'preview_List': self.get_previews(),
 
+        }
+        return render(request, self.template_name, context)
+
+class ChoosePlaceView(View):
+    template_name = 'ChoosePlace.html'
+    def get_showHall(self):
+        idS = self.kwargs.get('id')
+        return ShowHall.objects.get(id=idS)
+
+    def get_seats(self):
+        idS = self.kwargs.get('id')
+        ret = []
+        places = Place.objects.all().filter(hall_id=ShowHall.objects.get(id=idS).hall.id).order_by('row','number')
+        for iter in places:
+            try:
+                go = Reservation.objects.get(place_id=iter.id)
+            except ObjectDoesNotExist:
+                go = None
+            if go == None:
+                ret.append([iter, 0])
+            else:
+                ret.append([iter, 1])
+        return ret
+
+
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'object_list': self.get_seats(),
+            'showHall': self.get_showHall(),
         }
         return render(request, self.template_name, context)
