@@ -33,3 +33,6 @@ class Place(models.Model):
     hall = models.ForeignKey(Hall, on_delete=models.CASCADE)
     row = models.IntegerField()
     number = models.IntegerField()
+
+    def __str__(self):
+        return self.hall.cinema.name + ' sala:' + self.hall.number.__str__()

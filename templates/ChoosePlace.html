@@ -1,6 +1,10 @@
 {% extends 'baseHome.html' %}
 
+{% block links %}
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+{% endblock %}
 
 
 
@@ -128,8 +132,8 @@
 {% block content %}
 <div style="display:flex; width:90%; margin: 0 auto;">
 <div class="filmInfo" style="  border-right: 2px solid black;">
-        <p style="padding: 2%">Nazwa flmu</p>
-        <p style="padding: 2%">Data filmu</p>
+        <p style="padding: 2%">{{ showHall.show.movie.name }}</p>
+        <p style="padding: 2%">{{ showHall.dateTime|date:"Y-m-d H:i" }}</p>
 </div>
 
 <div class="container">
@@ -151,14 +155,14 @@
             {% if reserved == 0 %}
             <div id="ck-button">
                    <label>
-                      <input  type="checkbox" id="{{ seat.row }}.{{ seat.number }}" onclick="mySelectFunction({{ seat.row }}.{{ seat.number }})" class="btn"><span>{{ seat.number }}</span>
+                      <input  type="checkbox" id="{{ seat.row }}.{{ seat.number }}" onclick="mySelectFunction('{{ seat.row }}.{{ seat.number }}')" class="btn"><span>{{ seat.number }}</span>
                    </label>
                 </div>
             {% endif %}
             {% if reserved == 1 %}
             <div id="ck-button-dis">
                    <label>
-                      <input  type="checkbox" id="{{ seat.row }}.{{ seat.number }}" onclick="mySelectFunction({{ seat.row }}.{{ seat.number }})" class="btn" disabled><span>{{ seat.number }}</span>
+                      <input  type="checkbox" id="{{ seat.row }}.{{ seat.number }}" onclick="mySelectFunction('{{ seat.row }}.{{ seat.number }}')" class="btn" disabled><span>{{ seat.number }}</span>
                    </label>
                 </div>
             {% endif %}
@@ -177,14 +181,14 @@
 {% endblock %}
 
 {% block script %}
-<script>
 
-var limit = 20;
+
+var limit = {{ request.GET.norm}} + {{ request.GET.sch}} + {{ request.GET.stud}} + {{ request.GET.child}};
 $('input[type=checkbox]').change(function(e){
 
    if ($('input[type=checkbox]:checked').length > limit) {
         $(this).prop('checked', false)
-        alert("Możesz wybrać maksymalnie 20 miejsc");
+        alert("Możesz wybrać maksymalnie "+limit+" miejsc");
    }
 })
 
@@ -201,10 +205,15 @@ function mySelectFunction(a) {
 
 // Alert some text when the text in the text field has been selected
 function myAlertFunction() {
-   alert("wybrałeś miejsce " + nr);
+console.log(nr.length);
+console.log(limit);
+if (nr.length == limit){
+   window.location.href = "/potwierdzenie" + "?showH={{ showHall.id }}" + '&places=' + nr + "&norm={{ request.GET.norm}}&sch={{ request.GET.sch}}&stud={{ request.GET.stud}}&child={{ request.GET.child}}"
+}
+
 }
 
 
 
-</script>
+
 {% endblock %}

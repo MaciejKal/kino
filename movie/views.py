@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.views import View
-from cinema.models import Cinema, Place
+from cinema.models import Cinema, Place, Pricing
 from .models import Show, ShowHall, Preview, Reservation
 import datetime
 # Create your views here.
@@ -90,3 +91,35 @@ class ChoosePlaceView(View):
             'showHall': self.get_showHall(),
         }
         return render(request, self.template_name, context)
+
+class ReservateView(View):
+    template_name = 'Reservate.html'
+
+    def get(self, request, *args, **kwargs):
+        idS = self.kwargs.get('id')
+        pricing = Pricing.objects.get(id = ShowHall.objects.get(id = idS).pricing.id)
+
+        context = {
+
+            'pricing':pricing,
+            'idShow':idS
+        }
+        return render(request, self.template_name, context)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class FinalizeView(View):
+    template_name = 'Finalize.html'
+
+    def get(self, request, *args, **kwargs):
+
+        context = {
+
+
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, id=None, *args, **kwargs):
+        print(self.request.POST)
+        context = {}
+
+        return render(request, 'Confirmation.html', context)

@@ -35,6 +35,9 @@ class ShowHall(models.Model):
     hall = models.ForeignKey(cinema.Hall, on_delete=models.CASCADE)
     pricing = models.ForeignKey(cinema.Pricing, on_delete=models.CASCADE)
     dateTime = models.DateTimeField()
+    def __str__(self):
+        return 'kino: ' + self.show.cinema.name + ' sala:' + self.hall.number.__str__() + ' film:' + self.show.movie.name
+
 
 class Reservation(models.Model):
     showHall = models.ForeignKey(ShowHall, on_delete=models.CASCADE)

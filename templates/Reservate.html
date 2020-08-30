@@ -1,0 +1,81 @@
+{% extends 'baseHome.html' %}
+
+{% block links %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+{% endblock %}
+
+
+
+{% block contentstyle %}
+
+
+{% endblock %}
+
+{% block content %}
+<h1>Rezerwacja</h1>
+<form action="/rezerwacja/{{idShow}}" method="GET">
+    <br/>
+    <br/>
+    <label for="norm">Bilety normalne cena:{{ pricing.priceNor }} zł. Ilość:</label>
+        <select name="norm" id="norm">
+            <option selected>0</option>
+        </select>
+    <br/>
+    <br/>
+    <br/>
+    <label for="sch">Bilety szkolne cena:{{ pricing.priceSch }} zł. Ilość:</label>
+        <select name="sch" id="sch">
+            <option selected>0</option>
+        </select>
+    <br/>
+    <br/>
+    <br/>
+    <label for="stud">Bilety studenckie cena:{{ pricing.priceStud }} zł. Ilość:</label>
+        <select name="stud" id="stud">
+            <option selected>0</option>
+        </select>
+    <br/>
+    <br/>
+    <br/>
+    <label for="child">Bilety dla dzieci do lat 7 cena:{{ pricing.priceNor }} zł. Ilość:</label>
+        <select name="child" id="child">
+            <option selected>0</option>
+        </select>
+    <br/>
+    <input type="submit" value="Dalej">
+</form>
+
+{% endblock %}
+
+{% block script %}
+
+var numberRes = [{% for instance in p %}'{{ instance }}', {% endfor %}]
+
+var leftP = 10
+
+for (var i = 0; i < leftP; i++) {
+    var x = document.getElementById("norm");
+    var option = document.createElement("option");
+    option.text = i+1;
+    x.add(option);
+
+    x = document.getElementById("sch");
+    option = document.createElement("option");
+    option.text = i+1;
+    x.add(option);
+
+    x = document.getElementById("stud");
+    option = document.createElement("option");
+    option.text = i+1;
+    x.add(option);
+
+    x = document.getElementById("child");
+    option = document.createElement("option");
+    option.text = i+1;
+    x.add(option);
+}
+
+console.log(numberRes.length)
+{% endblock %}
