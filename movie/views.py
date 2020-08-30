@@ -51,7 +51,7 @@ class PreviewListCinemaView(View):
     template_name = 'PreviewList.html'
     def get_previews(self):
         idC = self.kwargs.get('id')
-        return Preview.objects.all().filter(cinema_id = idC).filter(premiere__gt = datetime.date.today())
+        return Preview.objects.all().filter(cinema_id = idC).filter(premiere__gt = datetime.date.today()).order_by('movie_id')
 
     def get(self, request, *args, **kwargs):
         context = {
