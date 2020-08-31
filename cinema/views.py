@@ -10,11 +10,11 @@ class HomeCinemaListView(View):
     queryset = Cinema.objects.all()
     shows = Show.objects.all()
     movies = []
-    #for show in shows:
-    #    if(show.dateFrom <= datetime.date.today() or show.dateTo >= datetime.date.today()):
-    #        movie = show.movie
-    #        if movie not in movies:
-    #            movies.append(movie)
+    for show in shows:
+        if(show.dateFrom <= datetime.date.today() or show.dateTo >= datetime.date.today()):
+            movie = show.movie
+            if movie not in movies:
+                movies.append(movie)
 
 
 
@@ -52,8 +52,7 @@ class CinemaMovieList(View):
 
     def get(self, request, *args, **kwargs):
         context = {
-            'object_list': self.get_objects(),           
+            'object_list': self.get_objects(),
             'cinema_id': self.kwargs.get('idC')
         }
         return render(request, self.template_name, context)
-        
