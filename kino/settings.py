@@ -87,8 +87,12 @@ WSGI_APPLICATION = 'kino.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd9h3rkv9eod8bv',
+        'USER': 'guyzwohvvbgngl',
+        'PASSWORD': '76ccd36f6dd9ea3f9e7b27efb8e61242a2f34e31f22aaf3a05930dc9028be06e',
+        'HOST': 'ec2-3-213-102-175.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
