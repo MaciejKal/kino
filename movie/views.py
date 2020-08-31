@@ -74,7 +74,7 @@ class ChoosePlaceView(View):
         places = Place.objects.all().filter(hall_id=ShowHall.objects.get(id=idS).hall.id).order_by('row','number')
         for iter in places:
             try:
-                go = Reservation.objects.get(place_id=iter.id)
+                go = Reservation.objects.get(showHall_id = idS,place_id=iter.id)
             except ObjectDoesNotExist:
                 go = None
             if go == None:
@@ -119,7 +119,46 @@ class FinalizeView(View):
         return render(request, self.template_name, context)
 
     def post(self, request, id=None, *args, **kwargs):
+        mail = request.POST.get('mail')
+        showH = request.POST.get('showH')
+        places = request.POST.get('places')
+        norm = int(request.POST.get('norm'))
+        sch = int(request.POST.get('sch'))
+        stud = int(request.POST.get('stud'))
+        child = int(request.POST.get('child'))
+
+        text = "Rezarwacja powiodła się<br/>Zarezerwowano " + str(norm + sch + stud + child) + " miejsc:<br/>" + str(norm) + ": normalnych<br/>" + str(sch) + ": szkolnych<br/>" + str(stud) + ": studenckich<br/>"+ str(child) + ": dla dzieci<br/>"
+
+        tab = places.split(',')
+        showHallObject = ShowHall.objects.get(id=showH)
+        picing = Pricing.objects.get(id=showHallObject.pricing.id)
+        sum = int(norm) * picing.priceNor + int(sch) * picing.priceSch + int(stud) * picing.priceStud + int(child) * picing.priceChild
+        text = text + "Za kwotę: " + str(sum)  +"zł"
+        for item in tab:
+            p = item.split('.')
+            try:
+                go = Reservation.objects.get(showHall_id=showH, place_id = Place.objects.get(hall_id=showHallObject.hall.id, row=p[0], number=p[1]).id)
+            except ObjectDoesNotExist:
+                go = None
+            if go != None:
+                return render(request, 'Confirmation.html', { 'text': "Błąd rezerwacji" })
+
+        for item in tab:
+            p = item.split('.')
+            if norm > 0:
+                Reservation.objects.create(showHall = showHallObject, place = Place.objects.get(hall_id=showHallObject.hall.id, row =p[0], number=p[1]), price = picing.priceNor, mail=mail, payed=False, ukey=False)
+                norm = norm - 1
+            elif sch > 0:
+                Reservation.objects.create(showHall = showHallObject, place = Place.objects.get(hall_id=showHallObject.hall.id, row =p[0], number=p[1]), price = picing.priceSch, mail=mail, payed=False, ukey=False)
+                sch = sch - 1
+            elif stud > 0:
+                Reservation.objects.create(showHall = showHallObject, place = Place.objects.get(hall_id=showHallObject.hall.id, row =p[0], number=p[1]), price = picing.priceStud, mail=mail, payed=False, ukey=False)
+                stud = stud - 1
+            elif child > 0:
+                Reservation.objects.create(showHall = showHallObject, place = Place.objects.get(hall_id=showHallObject.hall.id, row =p[0], number=p[1]), price = picing.priceChild, mail=mail, payed=False, ukey=False)
+                child = child - 1
+
         print(self.request.POST)
-        context = {}
+        context = { 'text': text}
 
         return render(request, 'Confirmation.html', context)

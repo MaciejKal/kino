@@ -35,4 +35,4 @@ class Place(models.Model):
     number = models.IntegerField()
 
     def __str__(self):
-        return self.hall.cinema.name + ' sala:' + self.hall.number.__str__()
+        return self.hall.cinema.name + ' sala:' + self.hall.number.__str__() + ' rząd:' + self.row.__str__() + ' numer:' + self.number.__str__()

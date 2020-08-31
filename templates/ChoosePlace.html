@@ -198,7 +198,7 @@ function mySelectFunction(a) {
   if (nr.indexOf(a) != -1) {
     nr.splice(nr.indexOf(a),1);
   }
-  else {
+  else if (nr.length < limit) {
     nr.push(a);
   }
 }
@@ -210,7 +210,9 @@ console.log(limit);
 if (nr.length == limit){
    window.location.href = "/potwierdzenie" + "?showH={{ showHall.id }}" + '&places=' + nr + "&norm={{ request.GET.norm}}&sch={{ request.GET.sch}}&stud={{ request.GET.stud}}&child={{ request.GET.child}}"
 }
-
+else {
+    alert("Nie wybrano wystarczającej liczby miejsc");
+}
 }
 
 
