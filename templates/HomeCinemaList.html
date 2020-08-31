@@ -201,13 +201,13 @@ img{
 		</div>
         <div class ="selectionListCinema" id="cinemaDiv">
             <div class="dropdown">
-              <button id = "choiceButtonM" onclick="myFunctionM()" class="dropbtn">Wybierz kino</button>
+              <div class="buttonKino"><button id = "choiceButtonM" onclick="myFunctionM()" class="dropbtn">Wybierz kino</button>
               <div id="myDropdownM" class="dropdown-content">
                 <input type="text" placeholder="Search.." id="myInputM" onkeyup="filterFunctionM()">
                   {% for instance in object_list %}
                      <a onclick="toogleTextM('{{ instance.city }} - {{ instance.name }}', {{ instance.id }})" id="{{ instance.id }}"> {{ instance.city }} - {{ instance.name }}</a>
                   {% endfor %}
-              </div>
+              </div></div>
               <button style="margin-left:2%;" onclick="gotoPage()" class="dropbtn" id="nextButton2" autocomplete="off" disabled="disabled">Dalej</button>
             </div>
         </div>
