@@ -52,6 +52,7 @@ class CinemaMovieList(View):
 
     def get(self, request, *args, **kwargs):
         context = {
-            'object_list': self.get_objects()
+            'object_list': self.get_objects(),
+            'cinema_id': self.kwargs.get('idC')
         }
         return render(request, self.template_name, context)

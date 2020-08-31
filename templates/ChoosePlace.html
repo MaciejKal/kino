@@ -1,0 +1,221 @@
+{% extends 'baseHome.html' %}
+
+{% block links %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+{% endblock %}
+
+
+
+{% block contentstyle %}
+
+.container {
+    min-width: 70%;
+    margin: 0 auto;
+}
+
+
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.selection {
+  justify-content: flex-end;
+  width: 100%;
+  display: flex;
+
+}
+
+.selection button {
+  background-color: #4CAF50; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+}
+
+#ck-button-dis {
+    margin:4px;
+    background-color:black;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+    text-align: center;
+}
+#ck-button-dis label {
+    float:left;
+    width:4.0em;
+}
+
+#ck-button-dis label span {
+    text-align:center;
+    padding:3px 0px;
+    display:block;
+    border-radius:4px;
+}
+
+#ck-button-dis label input {
+    position:absolute;
+    top:-20px;
+}
+
+
+#ck-button {
+    margin:4px;
+    background-color:#EFEFEF;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+    text-align: center;
+}
+
+#ck-button label {
+    float:left;
+    width:4.0em;
+}
+
+#ck-button label span {
+    text-align:center;
+    padding:3px 0px;
+    display:block;
+    border-radius:4px;
+}
+
+#ck-button label input {
+    position:absolute;
+    top:-20px;
+}
+
+#ck-button input:hover + span {
+    background-color:#efE0E0;
+}
+
+#ck-button input:checked + span {
+    background-color:#911;
+    color:#fff;
+}
+
+#ck-button input:checked:hover + span {
+    background-color:#c11;
+    color:#fff;
+}
+
+.center {
+    margin-top: 20%;
+
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+
+}
+.rowNr{
+    border-top:2px solid black; border-bottom: 2px solid black;
+    display: flex;
+
+    align-items: center;
+}
+
+
+{% endblock %}
+
+{% block content %}
+<div style="display:flex; width:90%; margin: 0 auto;">
+<div class="filmInfo" style="  border-right: 2px solid black;">
+        <p style="padding: 2%">{{ showHall.show.movie.name }}</p>
+        <p style="padding: 2%">{{ showHall.dateTime|date:"Y-m-d H:i" }}</p>
+</div>
+
+<div class="container">
+
+    <div class="center">
+            <div class="rowNr">
+                <div style="text-align: center;">Wybierz miejsca ({{ request.GET.norm|add:request.GET.sch|add:request.GET.stud|add:request.GET.child}})</div>
+                <div class="row">
+    {% for seat, reserved in object_list %}
+
+        {% ifchanged seat.row %}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="rowNr">
+                <div style="text-align: center;">{{ seat.row }}</div>
+                <div class="row">
+        {% endifchanged %}
+            {% if reserved == 0 %}
+            <div id="ck-button">
+                   <label>
+                      <input  type="checkbox" id="{{ seat.row }}.{{ seat.number }}" onclick="mySelectFunction('{{ seat.row }}.{{ seat.number }}')" class="btn"><span>{{ seat.number }}</span>
+                   </label>
+                </div>
+            {% endif %}
+            {% if reserved == 1 %}
+            <div id="ck-button-dis">
+                   <label>
+                      <input  type="checkbox" id="{{ seat.row }}.{{ seat.number }}" onclick="mySelectFunction('{{ seat.row }}.{{ seat.number }}')" class="btn" disabled><span>{{ seat.number }}</span>
+                   </label>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="selection">
+        <button onclick="myAlertFunction()" class="dropbtn">Dalej</button>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+
+var limit = {{ request.GET.norm}} + {{ request.GET.sch}} + {{ request.GET.stud}} + {{ request.GET.child}};
+$('input[type=checkbox]').change(function(e){
+
+   if ($('input[type=checkbox]:checked').length > limit) {
+        $(this).prop('checked', false)
+        alert("Możesz wybrać maksymalnie "+limit+" miejsc");
+   }
+})
+
+var nr = [];
+
+function mySelectFunction(a) {
+  if (nr.indexOf(a) != -1) {
+    nr.splice(nr.indexOf(a),1);
+  }
+  else if (nr.length < limit) {
+    nr.push(a);
+  }
+}
+
+// Alert some text when the text in the text field has been selected
+function myAlertFunction() {
+console.log(nr.length);
+console.log(limit);
+if (nr.length == limit){
+   window.location.href = "/potwierdzenie" + "?showH={{ showHall.id }}" + '&places=' + nr + "&norm={{ request.GET.norm}}&sch={{ request.GET.sch}}&stud={{ request.GET.stud}}&child={{ request.GET.child}}"
+}
+else {
+    alert("Nie wybrano wystarczającej liczby miejsc");
+}
+}
+
+
+
+
+{% endblock %}
