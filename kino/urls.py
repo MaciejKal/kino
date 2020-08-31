@@ -19,17 +19,17 @@ from django.conf.urls.static import static
 from kino import settings
 
 
-from cinema.views import HomeCinemaListView, CinemaMovieList
-from movie.views import ShowView, PreviewListCinemaView, PreviewListView, ChoosePlaceView, ReservateView,FinalizeView
+#from cinema.views import HomeCinemaListView, CinemaMovieList
+#from movie.views import ShowView, PreviewListCinemaView, PreviewListView, ChoosePlaceView, ReservateView,FinalizeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path( '', HomeCinemaListView.as_view(), name='home-page'),
-    path( 'kino/<int:idC>', CinemaMovieList.as_view(), name='cinema-movies'),
-    path( 'kino/<int:idC>/film/<int:idM>', ShowView.as_view(), name='cinema-movies'),
-    path('zapowiedzi/<int:id>', PreviewListCinemaView.as_view(), name='preview-cinema-movies'),
-    path('zapowiedzi/', PreviewListView.as_view(), name='preview-movies'),
-    path('rezerwacja/<int:id>', ChoosePlaceView.as_view(), name='choose-place'),
-    path('seans/<int:id>', ReservateView.as_view(), name='reservate-place'),
-    path('potwierdzenie/', FinalizeView.as_view(), name='finalize-reservation'),
+    #path( '', HomeCinemaListView.as_view(), name='home-page'),
+    #path( 'kino/<int:idC>', CinemaMovieList.as_view(), name='cinema-movies'),
+    #path( 'kino/<int:idC>/film/<int:idM>', ShowView.as_view(), name='cinema-movies'),
+    #path('zapowiedzi/<int:id>', PreviewListCinemaView.as_view(), name='preview-cinema-movies'),
+    #path('zapowiedzi/', PreviewListView.as_view(), name='preview-movies'),
+    #path('rezerwacja/<int:id>', ChoosePlaceView.as_view(), name='choose-place'),
+    #path('seans/<int:id>', ReservateView.as_view(), name='reservate-place'),
+    #path('potwierdzenie/', FinalizeView.as_view(), name='finalize-reservation'),
 ] +static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
