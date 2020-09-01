@@ -227,6 +227,14 @@ function setDateVal(x){
   }
   else if(x==8){
     result2 = $('#datepicker').datepicker().value();
+	if(result2=="")
+	{	
+		return;
+	}
+	else if (result2==dd)
+	{
+		return;
+	}
   }
 
     text1 = window.location.href
@@ -264,7 +272,7 @@ $( "#datepicker" ).datepicker({
             return new Date(date.getFullYear(), date.getMonth(), date.getDate());
         },
 
-         change: function (e, type) {
+         close: function (e, type) {
              setDateVal(8);
          }
 });
