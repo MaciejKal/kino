@@ -32,4 +32,4 @@ urlpatterns = [
     path('rezerwacja/<int:id>', ChoosePlaceView.as_view(), name='choose-place'),
     path('seans/<int:id>', ReservateView.as_view(), name='reservate-place'),
     path('potwierdzenie/', FinalizeView.as_view(), name='finalize-reservation'),
-] +static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

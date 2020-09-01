@@ -151,7 +151,8 @@ nav {
 
     </div>
     <div class="imageDiv">
-      <img src="{{ preview.0.movie.image.url }}">
+    	{% load static %}
+      	<img src="{% static  preview.0.movie.image.url %}">
     </div>
   </div>
 </div>
