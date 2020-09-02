@@ -167,6 +167,7 @@ nav {
 var WeekDays = ["Pn","Wt","Śr","Cz","Pt","So","Nd"];
 var date = new Date();
 var date2 = new Date();
+var dd="";
 document.getElementById("b2").innerHTML = WeekDays[date2.getDay()];
 document.getElementById("b3").innerHTML = WeekDays[(date2.getDay()+1)%7];
 document.getElementById("b4").innerHTML = WeekDays[(date2.getDay()+2)%7];
@@ -180,6 +181,10 @@ current[0].className = current[0].className.replace(" active", "");
 
 var current2 = document.getElementsByClassName("btn");
 current2[{{ request.GET.id|add:-1 }}].className += " active";
+{% endif %}
+
+{% if request.GET.date %}
+dd = "{{ request.GET.date }}"
 {% endif %}
 
 
