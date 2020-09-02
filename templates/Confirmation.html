@@ -10,13 +10,50 @@
 
 {% block contentstyle %}
 
+.parent {
+    background-color: #474b4f;
+}
+
+.center {
+    margin-top: 10%;
+    width: 95%;
+    padding: 10px;
+    background-color: #474b4f;
+    color: #fff;
+    text-align: center;
+}
+
+.selection {
+  justify-content: center;
+  width: 100%;
+}
+
+.selection button {
+  background-color: #86c232;
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  text-decoration: none;
+  margin: 10px 2px;
+  cursor: pointer;
+}
+
+.selection button:hover {
+    background-color: #61892f;
+}
 
 {% endblock %}
 
 {% block content %}
 
-<p>{{ text|safe }}</p>
-<button><a href="/">Wróć do strony głownej</a></button>
+<div class="parent">
+    <div class="center">
+        <p>{{ text|safe }}</p>
+        <div class="selection">
+            <button class="dropbtn"><a href="/">Wróć do strony głownej</a></button>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 

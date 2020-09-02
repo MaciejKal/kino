@@ -6,26 +6,54 @@
 
 {% endblock %}
 
-
-
 {% block contentstyle %}
 
+.parent {
+    background-color: #474b4f;
+}
+
+.center {
+    margin-top: 15%;
+    width: 95%;
+    padding: 10px;
+    background-color: #474b4f;
+    color: #fff;
+    text-align: center;
+}
+
+input[type=submit] {
+  background-color: #86c232;
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  text-decoration: none;
+  margin: 10px 2px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #61892f;
+}
 
 {% endblock %}
 
 {% block content %}
 
-<form action="" method="POST">
-    <label for="mail">Emal</label>
-    <input id='mail' type="text" name="mail">
-    <input type="hidden" id="showH" name="showH" value="{{ request.GET.showH }}">
-    <input type="hidden" id="places" name="places" value="{{ request.GET.places }}">
-    <input type="hidden" id="norm" name="norm" value="{{ request.GET.norm }}">
-    <input type="hidden" id="sch" name="sch" value="{{ request.GET.sch }}">
-    <input type="hidden" id="stud" name="stud" value="{{ request.GET.stud }}">
-    <input type="hidden" id="child" name="child" value="{{ request.GET.child }}">
-    <input type="submit" value="Dokonaj rezerwacji">
-</form>
+<div class="parent">
+<div class="center">
+    <form action="" method="POST">
+        <label for="mail">Email</label>
+        <input id='mail' type="text" name="mail">
+        <input type="hidden" id="showH" name="showH" value="{{ request.GET.showH }}">
+        <input type="hidden" id="places" name="places" value="{{ request.GET.places }}">
+        <input type="hidden" id="norm" name="norm" value="{{ request.GET.norm }}">
+        <input type="hidden" id="sch" name="sch" value="{{ request.GET.sch }}">
+        <input type="hidden" id="stud" name="stud" value="{{ request.GET.stud }}">
+        <input type="hidden" id="child" name="child" value="{{ request.GET.child }}">
+        <input type="submit" value="Dokonaj rezerwacji">
+    </form>
+</div>
+</div>
 
 {% endblock %}
 

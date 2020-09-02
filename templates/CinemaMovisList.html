@@ -11,111 +11,139 @@
 
 
 {% block contentstyle %}
-    .container {
+.container {
     display: flex;
+    border: 2px solid #ccc;
+    background-color: #eee;
+    border-radius: 5px;
+}
 
-      border: 2px solid #ccc;
-      background-color: #eee;
-      border-radius: 5px;
+.container {
+    box-sizing: border-box;
+    background-color: #000;
+    color: #fff;
+}
 
+.container .divInfo {
+    display: grid;
+    grid-template-rows: auto lfr auto;
+    width: 80%;
+    float: left;
+}
+.container .divImg {
+    width: 20%;
+    float: left;
+    padding: 15px;
+}
 
-    }
+.container img{
+    vertical-align: text-top;
+    width: 100%;
+    object-fit: contain;
+    object-position: 0 0;
+}
 
-
-
-      .container {
-          box-sizing: border-box;
-      }
-      .container .divInfo {
-    	display: grid;
-        grid-template-rows: auto lfr auto;
-           width: 80%;
-      float: left;
-
-      }
-      .container .divImg {
-          width: 20%;
-      float: left;
-      padding: 15px;
-
-      }
-      .container img{
-      	vertical-align: text-top;
-        width: 100%;
-        object-fit: contain;
-        object-position: 0 0;
-    }
-
-    .btn {
-      border: none;
-      outline: none;
-      padding: 10px 16px;
-      background-color: #f1f1f1;
-      cursor: pointer;
-      font-size: 18px;
-    }
-    .active, .btn:hover {
-      background-color: #666;
-      color: white;
-    }
-    #myDIV {
-      display: flex;
-      justify-content: center;
-    }
-    #myDIV button {
-      border: 2px solid #ffffff;
-    }
+.btn {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    background-color: #86c232;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+}
+.active, .btn:hover {
+    background-color: #61892f;
+    color: white;
+}
+#myDIV {
+    display: flex;
+    justify-content: center;
+    backgroud-color: #474b4f;
+}
+#myDIV button {
+    border: 2px solid #ffffff;
+}
 
 #myInput {
-  background-image: url('/css/searchicon.png');
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 90%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
 }
 
 #myUL {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 
 
 section {
-  display: -webkit-flex;
-  display: flex;
+    display: -webkit-flex;
+    display: flex;
+    background-color: #474b4f;
 }
 
 /* Style the navigation menu */
 nav {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  background: #ccc;
-  padding: 10px;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    background-color: #474b4f;
+    padding: 10px;
 }
 
 /* Style the list inside the menu */
 
 
 #myUL {
-  -webkit-flex: 3;
-  -ms-flex: 3;
-  flex: 100;
-  background-color: #f1f1f1;
-  padding: 0px;
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    flex: 100;
+    background-color: #f1f1f1;
+    padding: 0px;
+}
+
+.divButtons button{
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    background-color: #86c232;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.divButtons button:hover{
+    background-color: #61892f;
+    color: white;
+}
+
+.search {
+    background-color: #6b6e70;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    weight: 100%;
+}
+
+::placeholder {
+    color: white;
+    opacity: 1;
 }
 
 
 {% endblock %}
 
 {% block content %}
-<div>
-  <div id="myDIV">
+<div style="background-color: #474b4f; ">
+  <div id="myDIV" style="background-color: #474b4f;">
     <button class="btn active" id="b1" onclick="setDateVal(1)">Dziś</button>
     <button class="btn" id="b2" onclick="setDateVal(2)">Pon</button>
     <button class="btn" id="b3" onclick="setDateVal(3)">Wtr</button>
@@ -128,13 +156,14 @@ nav {
     </button>
 
 </div>
-
-<input type="text" id="myInput" onkeyup="myListFilter()" placeholder="Search for names.." title="Type in a name">
+<div class="search" >
+    <input style="background-color: #6b6e70; color: #fff; margin-left: 0.5%;" type="text" id="myInput" onkeyup="myListFilter()" placeholder="Search for names.." title="Type in a name">
+</div>
 <section>
 
   <nav>
   </nav>
-<ul id="myUL">
+<ul id="myUL" >
   {% for show, showHall in object_list %}
     {% if showHall %}
   <li>
@@ -142,7 +171,7 @@ nav {
       <div class="divImg">
       {% load static %}
       <img  src="{% static  show.movie.image.url %}"/></div>
-        <div class="divInfo"><div class="divHeader"><h3><a href="/kino/{{ show.cinema.id }}/film/{{ show.movie.id }}">{{ show.movie.name }}</a></h3>
+        <div class="divInfo"><div class="divHeader"><h3><a href="/kino/{{ show.cinema.id }}/film/{{ show.movie.id }}" style="color: #fff;">{{ show.movie.name }}</a></h3>
       <p>{{ show.movie.genre }} | {{ show.movie.length }}</p></div><div class = "spacer"></div>
       <div class="divButtons"><p>
           {% for instance in showHall %}  {% ifchanged instance.pricing.priceName %} </p><p>{{ instance.pricing.priceType }}: {% endifchanged %} <button onclick="goToShow({{ instance.id }})">{{ instance.dateTime|date:"H:i"  }}</button>{% endfor %}</p>
@@ -158,7 +187,6 @@ nav {
 </nav>
 </section>
 </div>
-
 
 
 {% endblock %}
